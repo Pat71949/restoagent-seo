@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RestoAgent — Agent IA Téléphonique pour Restaurants | Réservations 24h/24</title>
+  <meta name="description" content="RestoAgent automatise la prise en charge téléphonique de votre restaurant : réservations 24h/24, réponse aux questions, réduction des no-shows. Démo gratuite 7 jours.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://restoagent.fr/">
+  <meta property="og:title" content="RestoAgent — Agent IA Téléphonique pour Restaurants">
+  <meta property="og:description" content="RestoAgent automatise la prise en charge téléphonique de votre restaurant : réservations 24h/24, réponse aux questions, réduction des no-shows. Démo gratuite 7 jours.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://restoagent.fr/">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="RestoAgent">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>:root{--bg:#faf7f3;--bg2:#f5f0eb;--dark:#1a1a1a;--dark2:#2d1f0e;--amber:#f0a500;--amber2:#e07b00;--white:#ffffff;--muted:#6b5e4e;--border:#e8ddd0;--radius:12px;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--dark);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1080px;margin:0 auto;padding:0 24px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;border:none;transition:.2s;font-family:'Inter',sans-serif;}
+.btn-primary{background:var(--amber);color:var(--dark);}
+.btn-primary:hover{background:var(--amber2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(240,165,0,.35);}
+.btn-outline{background:transparent;color:var(--dark);border:1.5px solid var(--dark);}
+.btn-outline:hover{background:var(--dark);color:var(--white);}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(240,165,0,.12);border:1px solid rgba(240,165,0,.4);color:var(--amber2);font-size:12px;font-weight:700;padding:5px 14px;border-radius:100px;letter-spacing:.5px;text-transform:uppercase;}
+.badge .dot{width:6px;height:6px;background:var(--amber);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.info-bar{display:flex;align-items:center;justify-content:center;gap:24px;background:var(--amber);color:var(--dark);font-size:13px;font-weight:600;padding:7px 24px;flex-wrap:wrap;}
+.info-bar a{color:var(--dark);font-weight:700;text-decoration:none;}
+.info-bar span{display:flex;align-items:center;gap:5px;}
+@media(max-width:768px){.info-bar{font-size:11px;padding:6px 12px;gap:14px;}}
+header{position:fixed;top:0;left:0;right:0;z-index:100;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(250,247,243,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--amber),var(--amber2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.logo-text{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:var(--dark);}
+.logo-text span{color:var(--amber2);}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:14px;color:var(--muted);font-weight:500;transition:.2s;}
+.nav-links a:hover{color:var(--dark);}
+.nav-cta{background:var(--amber) !important;color:var(--dark) !important;padding:10px 20px !important;border-radius:8px;font-weight:700 !important;}
+.nav-cta:hover{background:var(--amber2) !important;}
+.hero{padding:165px 0 80px;position:relative;overflow:hidden;text-align:center;background:linear-gradient(160deg,var(--dark2) 0%,var(--dark) 60%);}
+.hero-pattern{position:absolute;inset:0;background-image:radial-gradient(rgba(240,165,0,.06) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
+.hero-glow{position:absolute;top:-5%;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(240,165,0,.15) 0%,transparent 70%);pointer-events:none;}
+.hero .badge{margin-bottom:20px;border-color:rgba(240,165,0,.5);}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,5vw,58px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin:16px 0 20px;color:var(--white);animation:fadeUp .8s both;}
+.hero-sub{font-size:17px;color:#c9b99a;line-height:1.8;max-width:580px;margin:0 auto 36px;animation:fadeUp .8s .15s both;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .25s both;}
+.hero-btns .btn-outline{color:var(--white);border-color:rgba(255,255,255,.35);}
+.hero-btns .btn-outline:hover{background:rgba(255,255,255,.1);color:var(--white);}
+.hero-stats{display:flex;gap:40px;justify-content:center;margin-top:50px;flex-wrap:wrap;padding-bottom:8px;}
+.stat .num{font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700;color:var(--amber);}
+.stat .lbl{font-size:12px;color:#a89070;margin-top:2px;}
+.section{padding:80px 0;}
+.section-warm{background:var(--bg2);}
+.section-dark{background:var(--dark);color:var(--white);}
+.section-tag{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber2);margin-bottom:10px;}
+.section-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,4vw,40px);font-weight:700;line-height:1.2;margin-bottom:12px;}
+.section-sub{font-size:16px;color:var(--muted);line-height:1.8;max-width:520px;}
+.divider{width:48px;height:3px;background:linear-gradient(90deg,var(--amber),var(--amber2));border-radius:2px;margin:20px 0;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:40px;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:.3s;border-left:4px solid var(--amber);}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(240,165,0,.12);}
+.card-icon{font-size:30px;margin-bottom:12px;}
+.card h3{font-family:'Playfair Display',Georgia,serif;font-size:16px;font-weight:700;margin-bottom:7px;color:var(--dark);}
+.card p{font-size:14px;color:var(--muted);line-height:1.7;}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:24px;margin-top:44px;}
+.step{text-align:center;padding:0 10px;}
+.step-num{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--amber2));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:var(--dark);margin:0 auto 16px;box-shadow:0 4px 20px rgba(240,165,0,.3);}
+.step h3{font-weight:700;font-size:15px;margin-bottom:6px;}
+.step p{font-size:14px;color:var(--muted);line-height:1.7;}
+.plan{background:var(--white);border:2px solid var(--amber);border-radius:16px;padding:36px 28px;max-width:400px;margin:40px auto 0;box-shadow:0 8px 32px rgba(240,165,0,.15);}
+.plan-name{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;margin-bottom:6px;}
+.plan-price .amount{font-family:'Playfair Display',Georgia,serif;font-size:52px;font-weight:700;color:var(--amber2);line-height:1;}
+.plan-price .per{font-size:14px;color:var(--muted);}
+.plan-features{list-style:none;margin:20px 0 28px;}
+.plan-features li{display:flex;gap:10px;font-size:14px;margin-bottom:11px;align-items:flex-start;color:var(--dark);}
+.plan-features li::before{content:'✓';color:var(--amber2);font-weight:800;flex-shrink:0;}
+.plan-btn{width:100%;padding:14px;border-radius:10px;background:var(--amber);color:var(--dark);font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:.2s;}
+.plan-btn:hover{background:var(--amber2);}
+.faq-list{max-width:660px;margin:40px auto 0;}
+.faq-item{border-bottom:1px solid var(--border);padding:18px 0;}
+.faq-item h3{font-size:15px;font-weight:600;color:var(--dark);margin-bottom:7px;}
+.faq-item p{font-size:14px;color:var(--muted);line-height:1.8;}
+.cta-band{background:linear-gradient(135deg,var(--dark2),var(--dark));padding:64px 0;text-align:center;}
+.cta-band h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(22px,4vw,36px);font-weight:700;color:var(--white);margin-bottom:10px;}
+.cta-band p{font-size:16px;color:#c9b99a;margin-bottom:28px;}
+.zones{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:24px;}
+.zones a{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#c9b99a;padding:7px 16px;border-radius:6px;font-size:13px;transition:.2s;}
+.zones a:hover{border-color:var(--amber);color:var(--amber);}
+.form-wrap{max-width:500px;margin:0 auto;}
+.form-wrap input,.form-wrap select,.form-wrap textarea{width:100%;background:var(--white);border:1.5px solid var(--border);color:var(--dark);padding:12px 16px;border-radius:8px;font-family:'Inter',sans-serif;font-size:15px;margin-bottom:11px;box-sizing:border-box;transition:.2s;}
+.form-wrap input:focus,.form-wrap select:focus,.form-wrap textarea:focus{outline:none;border-color:var(--amber);}
+.form-wrap textarea{resize:vertical;min-height:80px;}
+.form-success{display:none;background:rgba(240,165,0,.1);border:1px solid rgba(240,165,0,.4);color:var(--amber2);padding:14px;border-radius:8px;text-align:center;margin-top:10px;font-weight:600;}
+.seo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:32px;}
+.seo-link{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px;font-size:14px;font-weight:600;color:var(--dark);transition:.25s;display:flex;align-items:center;gap:8px;}
+.seo-link:hover{border-color:var(--amber);color:var(--amber2);transform:translateY(-2px);box-shadow:0 4px 16px rgba(240,165,0,.12);}
+footer{background:var(--dark);color:#a89070;padding:36px 0;text-align:center;border-top:2px solid rgba(240,165,0,.2);}
+.foot-logo{font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:10px;}
+.foot-logo span{color:var(--amber);}
+footer p{font-size:13px;margin-bottom:5px;}
+footer a{color:var(--amber);}
+@media(max-width:768px){nav{padding:14px 20px;}.nav-links{display:none;}.hero{padding:145px 0 60px;}.section{padding:56px 0;}}</style>
+</head>
+<body><header>
+  <div class="info-bar"><span>&#128222; <a href="tel:+33687416663">06 87 41 66 63</a></span><span>&#128205; 455 Promenade des Angl&#x0061;is, 06000 Nice</span></div>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-icon">🍽️</div>
+      <span class="logo-text">Resto<span>Agent</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#villes">Villes</a>
+      <a href="#contact" class="nav-cta">Démo gratuite</a>
+    </div>
+  </nav>
+</header><main>
+
+  <section class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-glow"></div>
+    <div class="container" style="position:relative;">
+      <div class="badge"><span class="dot"></span> Agent IA Téléphonique</div>
+      <h1>Votre Restaurant ne<br>rate plus un seul appel</h1>
+      <p class="hero-sub">RestoAgent répond à vos clients 24h/24, prend les réservations en automatique et réduit les no-shows. Zéro appel manqué, zéro stress en cuisine, zéro surcoût humain.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">Démarrer ma démo gratuite →</a>
+        <a href="tel:+33687416663" class="btn btn-outline">📞 06 87 41 66 63</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">24h/24</div><div class="lbl">Disponibilité</div></div>
+        <div class="stat"><div class="num">48h</div><div class="lbl">Mise en place</div></div>
+        <div class="stat"><div class="num">-35%</div><div class="lbl">No-shows</div></div>
+        <div class="stat"><div class="num">7j</div><div class="lbl">Essai gratuit</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fonctionnalites">
+    <div class="container">
+      <p class="section-tag">Ce que fait RestoAgent</p>
+      <h2 class="section-title">Un assistant IA qui gère vos appels<br>à votre place</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Pendant que vous cuisinez, RestoAgent décroche, renseigne, réserve et confirme. Comme un réceptionniste, mais sans salaire, sans congés, sans oublis.</p>
+      <div class="cards">
+        <div class="card"><div class="card-icon">📞</div><h3>Réponse immédiate</h3><p>Vos clients sont pris en charge à la première sonnerie, même le dimanche soir à 23h. Fini l'attente et les appels perdus.</p></div>
+        <div class="card"><div class="card-icon">📅</div><h3>Réservations automatiques</h3><p>L'agent intègre votre planning en temps réel et confirme chaque réservation par SMS ou e-mail instantanément.</p></div>
+        <div class="card"><div class="card-icon">🔔</div><h3>Réduction des no-shows</h3><p>Rappels automatiques la veille et le jour J. Jusqu'à 35 % de no-shows en moins selon nos restaurants pilotes.</p></div>
+        <div class="card"><div class="card-icon">💬</div><h3>Questions fréquentes</h3><p>Horaires, menu du jour, allergènes, accès PMR, parking — RestoAgent répond sans que vous n'ayez à lever le nez de vos casseroles.</p></div>
+        <div class="card"><div class="card-icon">📊</div><h3>Tableau de bord</h3><p>Toutes les conversations, toutes les réservations dans une interface simple. Exportable, synchronisable avec votre système de caisse.</p></div>
+        <div class="card"><div class="card-icon">🌍</div><h3>Multilingue</h3><p>Vos clients étrangers sont accueillis en anglais, espagnol, italien ou allemand. Idéal pour les zones touristiques.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-warm">
+    <div class="container">
+      <p class="section-tag">Mise en place</p>
+      <h2 class="section-title">Opérationnel en 48 heures</h2>
+      <div class="divider"></div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><h3>Démo gratuite</h3><p>On vous présente RestoAgent en direct et on répond à toutes vos questions.</p></div>
+        <div class="step"><div class="step-num">2</div><h3>Personnalisation</h3><p>On configure l'agent à votre image : voix, horaires, menu, règles de réservation.</p></div>
+        <div class="step"><div class="step-num">3</div><h3>Déploiement</h3><p>Votre numéro est transféré ou un nouveau numéro est activé. L'agent est opérationnel.</p></div>
+        <div class="step"><div class="step-num">4</div><h3>Suivi continu</h3><p>On monitore les performances et on optimise l'agent chaque semaine avec vous.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tarifs">
+    <div class="container" style="text-align:center;">
+      <p class="section-tag">Tarifs</p>
+      <h2 class="section-title">Un seul forfait, tout inclus</h2>
+      <div class="divider" style="margin:20px auto;"></div>
+      <div class="plan">
+        <div class="plan-name">🍽️ RestoAgent Pro</div>
+        <div class="plan-price" style="margin:14px 0 4px;"><span class="amount">149</span><span class="per">€ / mois</span></div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:4px;">+ frais de setup 199 € (offerts si démarrage avant fin du mois)</p>
+        <ul class="plan-features">
+          <li>Agent IA téléphonique disponible 24h/24</li>
+          <li>Prise de réservations automatique</li>
+          <li>Rappels anti no-show illimités</li>
+          <li>Réponse aux questions courantes</li>
+          <li>Tableau de bord et historique des appels</li>
+          <li>Support réactif par WhatsApp</li>
+          <li>Essai gratuit 7 jours sans CB</li>
+        </ul>
+        <button class="plan-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Démarrer l'essai gratuit →</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="villes">
+    <div class="container">
+      <p class="section-tag" style="color:var(--amber);">Zones couvertes</p>
+      <h2 class="section-title" style="color:var(--white);">RestoAgent partout en France</h2>
+      <div class="divider"></div>
+      <p style="color:#c9b99a;font-size:15px;margin-bottom:8px;">Retrouvez nos pages dédiées par ville et type de restaurant :</p>
+      <div class="zones">
+        <a href="/agent-ia-restaurant-paris.html">🗼 Paris</a>
+        <a href="/agent-ia-restaurant-nice.html">🌊 Nice</a>
+        <a href="/agent-ia-restaurant-marseille.html">⚓ Marseille</a>
+        <a href="/agent-ia-restaurant-lyon.html">🦁 Lyon</a>
+        <a href="/agent-ia-restaurant-bordeaux.html">🍷 Bordeaux</a>
+        <a href="/agent-ia-restaurant-cannes.html">🎬 Cannes</a>
+        <a href="/agent-ia-restaurant-antibes.html">⛵ Antibes</a>
+        <a href="/agent-ia-restaurant-saint-tropez.html">☀️ Saint-Tropez</a>
+        <a href="/agent-ia-restaurant-monaco.html">🎰 Monaco</a>
+        <a href="/agent-ia-restaurant-toulouse.html">🌹 Toulouse</a>
+        <a href="/agent-ia-restaurant-montpellier.html">🏛️ Montpellier</a>
+        <a href="/agent-ia-restaurant-nantes.html">🏰 Nantes</a>
+        <a href="/agent-ia-restaurant-gastronomique.html">⭐ Gastronomique</a>
+        <a href="/agent-ia-brasserie.html">🍺 Brasserie</a>
+        <a href="/agent-ia-restaurant-pizzeria.html">🍕 Pizzeria</a>
+        <a href="/agent-ia-restaurant-sushi.html">🍣 Sushi & Japonais</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-warm">
+    <div class="container">
+      <p class="section-tag">FAQ</p>
+      <h2 class="section-title">Questions fréquentes</h2>
+      <div class="divider"></div>
+      <div class="faq-list">
+        <div class="faq-item"><h3>Faut-il changer de numéro de téléphone ?</h3><p>Non. Votre numéro actuel est transféré vers RestoAgent. Vos clients appellent le même numéro, l'agent prend en charge les appels selon vos règles.</p></div>
+        <div class="faq-item"><h3>L'agent parle-t-il à la place d'un humain ?</h3><p>RestoAgent se présente toujours comme un assistant de votre restaurant, jamais comme un humain. Transparence totale avec vos clients.</p></div>
+        <div class="faq-item"><h3>Est-ce que je reste informé des réservations ?</h3><p>Oui. Chaque réservation vous est notifiée en temps réel par SMS ou e-mail. Vous gardez le contrôle total.</p></div>
+        <div class="faq-item"><h3>Que se passe-t-il si un client veut parler à un humain ?</h3><p>L'agent peut vous transférer l'appel ou prendre un message selon vos préférences. Vous définissez les règles.</p></div>
+        <div class="faq-item"><h3>Combien de temps pour mettre en place ?</h3><p>La configuration prend généralement 24 à 48 heures. Vous êtes opérationnel en moins de 2 jours ouvrés après signature.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="contact">
+    <div class="container" style="text-align:center;">
+      <p class="section-tag" style="color:var(--amber);">Démo gratuite</p>
+      <h2 class="section-title" style="color:var(--white);">Essayez RestoAgent 7 jours gratuitement</h2>
+      <div class="divider" style="margin:20px auto;"></div>
+      <p style="color:#c9b99a;margin-bottom:28px;font-size:15px;">Aucune CB requise. On vous configure un agent personnalisé à votre restaurant sous 48h.</p>
+      <div class="form-wrap">
+        <form id="demoForm" onsubmit="submitForm(event)">
+          <input type="hidden" name="subject" value="Demande de démo — RestoAgent">
+          <input type="text" name="name" placeholder="Votre nom" required>
+          <input type="text" name="restaurant" placeholder="Nom de votre restaurant" required>
+          <input type="tel" name="phone" placeholder="Votre téléphone" required>
+          <input type="email" name="email" placeholder="Votre e-mail" required>
+          <select name="type">
+            <option value="">Type de restaurant</option>
+            <option>Restaurant gastronomique</option>
+            <option>Brasserie</option>
+            <option>Pizzeria</option>
+            <option>Sushi / Restaurant japonais</option>
+            <option>Bistrot / Café</option>
+            <option>Autre</option>
+          </select>
+          <textarea name="message" placeholder="Votre message (optionnel)"></textarea>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Demander ma démo gratuite →</button>
+        </form>
+        <div class="form-success" id="formSuccess">Merci ! On vous recontacte sous 24h pour configurer votre démo. 🍽️</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-logo">Resto<span>Agent</span></div>
+    <p>Agent IA téléphonique pour restaurants — Réservations 24h/24</p>
+    <p style="margin-top:8px;">📞 <a href="tel:+33687416663">06 87 41 66 63</a> &nbsp;|&nbsp; 📍 455 Promenade des Anglais, 06000 Nice</p>
+    <p style="margin-top:8px;font-size:12px;">© 2026 RestoAgent. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script>
+function submitForm(e){
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  fetch('https://formspree.io/f/xjkwvpjz', {method:'POST', body:data, headers:{Accept:'application/json'}})
+    .then(r => {
+      if(r.ok){
+        form.style.display='none';
+        document.getElementById('formSuccess').style.display='block';
+      }
+    })
+    .catch(() => {
+      form.style.display='none';
+      document.getElementById('formSuccess').style.display='block';
+    });
+}
+</script>
+</body>
+</html>
