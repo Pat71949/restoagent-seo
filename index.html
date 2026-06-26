@@ -98,6 +98,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:16px 4
 .form-wrap input:focus,.form-wrap select:focus,.form-wrap textarea:focus{outline:none;border-color:var(--amber);}
 .form-wrap textarea{resize:vertical;min-height:80px;}
 .form-success{display:none;background:rgba(240,165,0,.1);border:1px solid rgba(240,165,0,.4);color:var(--amber2);padding:14px;border-radius:8px;text-align:center;margin-top:10px;font-weight:600;}
+.form-error{display:none;background:rgba(220,50,50,.1);border:1px solid rgba(220,50,50,.4);color:#e05050;padding:14px;border-radius:8px;text-align:center;margin-top:10px;font-weight:600;}
 .seo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:32px;}
 .seo-link{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px;font-size:14px;font-weight:600;color:var(--dark);transition:.25s;display:flex;align-items:center;gap:8px;}
 .seo-link:hover{border-color:var(--amber);color:var(--amber2);transform:translateY(-2px);box-shadow:0 4px 16px rgba(240,165,0,.12);}
@@ -255,6 +256,7 @@ footer a{color:var(--amber);}
       <p style="color:#c9b99a;margin-bottom:28px;font-size:15px;">Aucune CB requise. On vous configure un agent personnalisé à votre restaurant sous 48h.</p>
       <div class="form-wrap">
         <form id="demoForm" onsubmit="submitForm(event)">
+          <input type="hidden" name="access_key" value="623d7480-fe72-4757-9069-44f3ac0fec76">
           <input type="hidden" name="subject" value="Demande de démo — RestoAgent">
           <input type="text" name="name" placeholder="Votre nom" required>
           <input type="text" name="restaurant" placeholder="Nom de votre restaurant" required>
@@ -273,6 +275,7 @@ footer a{color:var(--amber);}
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Demander ma démo gratuite →</button>
         </form>
         <div class="form-success" id="formSuccess">Merci ! On vous recontacte sous 24h pour configurer votre démo. 🍽️</div>
+        <div class="form-error" id="formError">Une erreur est survenue. Merci de nous appeler directement au 06 87 41 66 63.</div>
       </div>
     </div>
   </section>
@@ -292,17 +295,21 @@ footer a{color:var(--amber);}
 function submitForm(e){
   e.preventDefault();
   const form = e.target;
-  const data = new FormData(form);
-  fetch('https://formspree.io/f/xjkwvpjz', {method:'POST', body:data, headers:{Accept:'application/json'}})
+  fetch('https://api.web3forms.com/submit', {
+    method:'POST',
+    body: new FormData(form)
+  })
+    .then(r => r.json())
     .then(r => {
-      if(r.ok){
+      if(r.success){
         form.style.display='none';
         document.getElementById('formSuccess').style.display='block';
+      } else {
+        document.getElementById('formError').style.display='block';
       }
     })
     .catch(() => {
-      form.style.display='none';
-      document.getElementById('formSuccess').style.display='block';
+      document.getElementById('formError').style.display='block';
     });
 }
 </script>
