@@ -34,6 +34,44 @@
     padding: 40px 20px 80px;
   }
 
+  .site-nav {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
+  .site-nav .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .site-nav .logo-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--dark);
+  }
+
+  .site-nav .logo-text span {
+    color: var(--amber2);
+  }
+
+  .site-nav .back-link {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .site-nav .back-link:hover {
+    color: var(--dark);
+  }
+
   header {
     text-align: center;
     max-width: 640px;
@@ -269,6 +307,14 @@
 </head>
 <body>
 
+<nav class="site-nav">
+  <a href="/" class="logo">
+    <span>🍽️</span>
+    <span class="logo-text">Resto<span>Agent</span></span>
+  </a>
+  <a href="/" class="back-link">← Accueil</a>
+</nav>
+
 <header>
   <div class="badge">📞 Calculateur ROI</div>
   <h1>Combien vos appels manqués vous <span>coûtent-ils</span> chaque mois ?</h1>
@@ -327,13 +373,13 @@
   </p>
 
   <div class="cta">
-    <a href="https://restoagent.fr" target="_blank" rel="noopener">Démarrer ma démo gratuite</a>
+    <a href="/#contact">Démarrer ma démo gratuite</a>
   </div>
 
 </div>
 
 <footer>
-  <a href="https://restoagent.fr" target="_blank" rel="noopener">restoagent.fr</a> — réception téléphonique IA pour restaurants
+  <a href="/">restoagent.fr</a> — réception téléphonique IA pour restaurants
 </footer>
 
 <script>
