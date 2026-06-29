@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculateur ROI — RestoAgent</title>
+<style>
+  :root {
+    --bg: #0a0e0d;
+    --card: #121816;
+    --card-border: #1f2a27;
+    --green: #2ecc71;
+    --green-light: #58e08a;
+    --red: #ff5c5c;
+    --text: #f2f5f3;
+    --text-muted: #8a9690;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 80px;
+  }
+
+  header {
+    text-align: center;
+    max-width: 640px;
+    margin-bottom: 36px;
+  }
+
+  header .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(46, 204, 113, 0.12);
+    color: var(--green-light);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+  }
+
+  header h1 {
+    font-size: 32px;
+    margin: 0 0 12px;
+    line-height: 1.2;
+  }
+
+  header h1 span {
+    color: var(--green-light);
+  }
+
+  header p {
+    color: var(--text-muted);
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+
+  .slider-group {
+    margin-bottom: 28px;
+  }
+
+  .slider-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+  }
+
+  .slider-label label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .slider-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green-light);
+    min-width: 70px;
+    text-align: right;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: #1f2a27;
+    outline: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--green);
+    cursor: pointer;
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.25);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--green);
+    cursor: pointer;
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.25);
+  }
+
+  .divider {
+    border-top: 1px solid var(--card-border);
+    margin: 32px 0;
+  }
+
+  .results {
+    display: grid;
+    gap: 16px;
+  }
+
+  .result-box {
+    border-radius: 14px;
+    padding: 22px 24px;
+    border: 1px solid var(--card-border);
+  }
+
+  .result-box.loss {
+    background: rgba(255, 92, 92, 0.08);
+    border-color: rgba(255, 92, 92, 0.3);
+  }
+
+  .result-box.gain {
+    background: rgba(46, 204, 113, 0.08);
+    border-color: rgba(46, 204, 113, 0.3);
+  }
+
+  .result-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+
+  .result-value {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .result-value.loss-value { color: var(--red); }
+  .result-value.gain-value { color: var(--green-light); }
+
+  .result-sub {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .roi-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .roi-pill {
+    background: var(--green);
+    color: #06140d;
+    font-weight: 800;
+    font-size: 20px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+
+  .disclaimer {
+    margin-top: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    text-align: center;
+    max-width: 640px;
+  }
+
+  .cta {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  .cta a {
+    display: inline-block;
+    background: var(--green);
+    color: #06140d;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 999px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .cta a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(46, 204, 113, 0.3);
+  }
+
+  footer {
+    margin-top: 40px;
+    color: var(--text-muted);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  footer a {
+    color: var(--green-light);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">📞 Calculateur ROI</div>
+  <h1>Combien vos appels manqués vous <span>coûtent-ils</span> chaque mois ?</h1>
+  <p>Ajustez les curseurs pour estimer votre perte de chiffre d'affaires, puis découvrez votre retour sur investissement avec RestoAgent.</p>
+</header>
+
+<div class="card">
+
+  <div class="slider-group">
+    <div class="slider-label">
+      <label for="missedCalls">Appels manqués par jour</label>
+      <span class="slider-value" id="missedCallsValue">5</span>
+    </div>
+    <input type="range" id="missedCalls" min="0" max="20" step="1" value="5">
+  </div>
+
+  <div class="slider-group">
+    <div class="slider-label">
+      <label for="avgTicket">Ticket moyen par couvert</label>
+      <span class="slider-value" id="avgTicketValue">35 €</span>
+    </div>
+    <input type="range" id="avgTicket" min="10" max="100" step="1" value="35">
+  </div>
+
+  <div class="slider-group">
+    <div class="slider-label">
+      <label for="covers">Couverts par réservation</label>
+      <span class="slider-value" id="coversValue">3</span>
+    </div>
+    <input type="range" id="covers" min="1" max="8" step="1" value="3">
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="results">
+    <div class="result-box loss">
+      <div class="result-label">Perte mensuelle estimée</div>
+      <div class="result-value loss-value" id="monthlyLoss">0 €</div>
+      <div class="result-sub" id="monthlyLossDetail"></div>
+    </div>
+
+    <div class="result-box gain">
+      <div class="result-label">Avec RestoAgent (50 €/mois)</div>
+      <div class="roi-row">
+        <div>
+          <div class="result-value gain-value" id="netGain">0 €</div>
+          <div class="result-sub" id="netGainDetail">gain net mensuel</div>
+        </div>
+        <div class="roi-pill" id="roiPill">ROI 0×</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    Estimation basée sur un mois de 30 jours et une récupération de 90&nbsp;% des appels manqués grâce à la réception virtuelle 24h/24 de RestoAgent. Chiffres indicatifs, à ajuster selon votre établissement.
+  </p>
+
+  <div class="cta">
+    <a href="https://restoagent.fr" target="_blank" rel="noopener">Démarrer ma démo gratuite</a>
+  </div>
+
+</div>
+
+<footer>
+  <a href="https://restoagent.fr" target="_blank" rel="noopener">restoagent.fr</a> — réception téléphonique IA pour restaurants
+</footer>
+
+<script>
+  const missedCallsInput = document.getElementById('missedCalls');
+  const avgTicketInput = document.getElementById('avgTicket');
+  const coversInput = document.getElementById('covers');
+
+  const missedCallsValue = document.getElementById('missedCallsValue');
+  const avgTicketValue = document.getElementById('avgTicketValue');
+  const coversValue = document.getElementById('coversValue');
+
+  const monthlyLossEl = document.getElementById('monthlyLoss');
+  const monthlyLossDetailEl = document.getElementById('monthlyLossDetail');
+  const netGainEl = document.getElementById('netGain');
+  const netGainDetailEl = document.getElementById('netGainDetail');
+  const roiPillEl = document.getElementById('roiPill');
+
+  const RESTOAGENT_COST = 50;
+  const RECOVERY_RATE = 0.9;
+  const DAYS_PER_MONTH = 30;
+
+  const eur = (n) => new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'EUR',
+    maximumFractionDigits: 0,
+  }).format(n);
+
+  function recalculate() {
+    const missedCalls = Number(missedCallsInput.value);
+    const avgTicket = Number(avgTicketInput.value);
+    const covers = Number(coversInput.value);
+
+    missedCallsValue.textContent = missedCalls;
+    avgTicketValue.textContent = `${avgTicket} €`;
+    coversValue.textContent = covers;
+
+    const lostCoversPerMonth = missedCalls * covers * DAYS_PER_MONTH;
+    const monthlyLoss = lostCoversPerMonth * avgTicket;
+    const monthlyRecovered = monthlyLoss * RECOVERY_RATE;
+    const netGain = monthlyRecovered - RESTOAGENT_COST;
+    const roiMultiple = monthlyRecovered / RESTOAGENT_COST;
+
+    monthlyLossEl.textContent = eur(monthlyLoss);
+    monthlyLossDetailEl.textContent =
+      `${missedCalls} appel(s)/jour × ${covers} couvert(s) × ${eur(avgTicket)} × 30 jours`;
+
+    netGainEl.textContent = eur(Math.max(netGain, 0));
+    netGainDetailEl.textContent =
+      `${eur(monthlyRecovered)} récupérés − ${eur(RESTOAGENT_COST)} d'abonnement`;
+
+    roiPillEl.textContent = `ROI ${roiMultiple.toFixed(1)}×`;
+  }
+
+  [missedCallsInput, avgTicketInput, coversInput].forEach((el) =>
+    el.addEventListener('input', recalculate)
+  );
+
+  recalculate();
+</script>
+
+</body>
+</html>
